@@ -12,12 +12,14 @@ compile 'com.wujilin.doorbell:doorbell:0.1.0' // Coming soon
 
 # How do I use Doorbell?
 
+Checkout the [GitHub Wiki](https://github.com/belinwu/doorbell/wiki) for more details.
+
 ## Start a Activity
 
 ```java
 Doorbell.with(activity)
     .start(AnthorActivity.class)
-    .condition(boolean)
+    .condition(boolean) // Optional
     .ring();
 ```
 
@@ -34,10 +36,10 @@ When the condition is passed, `OnAllowListener.onAllow()` will be called.
 ## Ring a Door
 
 ```java
-Doorbell.ring(door);
+Doorbell.ring(Door);
 ```
 
-When the condition of the door is passed, `door.onAllow()` will be called, otherwise `door.onBlock()` called.
+When the condition of the door is passed, `Door.onAllow()` will be called, otherwise `Door.onBlock()` called.
 
 # License
 
