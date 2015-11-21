@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.AnimRes;
 import android.support.v4.app.Fragment;
 
@@ -36,6 +37,9 @@ import com.wujilin.doorbell.Doorbell;
 import com.wujilin.doorbell.RingListener;
 import com.wujilin.doorbell.Starter;
 import com.wujilin.doorbell.Transition;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 import static com.wujilin.doorbell.starter.Starters.newActivityStarter;
 import static com.wujilin.doorbell.starter.Starters.newContextStarter;
@@ -102,7 +106,7 @@ public class ActivityDoorbell extends Doorbell {
   }
 
   @Override
-  public void onAllow() {
+  protected void onAllow() {
     requireNonNull(intent, "The intent must not be null.");
 
     switch (requestCode) {
@@ -237,78 +241,221 @@ public class ActivityDoorbell extends Doorbell {
     /**
      * Puts a boolean extra.
      *
-     * @param key The key of extra
-     * @param value The value of extra
+     * @param name The name of the extra data, with package prefix.
+     * @param value The boolean data value
      * @return this
      */
-    public Builder extra(String key, boolean value) {
+    public Builder extra(String name, boolean value) {
       requireIntent();
-      this.intent.putExtra(key, value);
+      this.intent.putExtra(name, value);
       return this;
     }
 
     /**
      * Puts a int extra.
      *
-     * @param key The key of the extra
-     * @param value The value of the extra
+     * @param name The name of the extra data, with package prefix.
+     * @param value The int data value
      * @return this
      */
-    public Builder extra(String key, int value) {
+    public Builder extra(String name, int value) {
       requireIntent();
-      this.intent.putExtra(key, value);
+      this.intent.putExtra(name, value);
       return this;
     }
 
     /**
      * Puts a long extra.
      *
-     * @param key The key of the extra
-     * @param value The value of the extra
+     * @param name The name of the extra data, with package prefix.
+     * @param value The long data value
      * @return this
      */
-    public Builder extra(String key, long value) {
+    public Builder extra(String name, long value) {
       requireIntent();
-      this.intent.putExtra(key, value);
+      this.intent.putExtra(name, value);
       return this;
     }
 
     /**
      * Puts a float extra.
      *
-     * @param key The key of the extra
-     * @param value The value of the extra
+     * @param name The name of the extra data, with package prefix.
+     * @param value The float data value
      * @return this
      */
-    public Builder extra(String key, float value) {
+    public Builder extra(String name, float value) {
       requireIntent();
-      this.intent.putExtra(key, value);
+      this.intent.putExtra(name, value);
       return this;
     }
 
     /**
      * Puts a double extra.
      *
-     * @param key The key of the extra
-     * @param value The value of the extra
+     * @param name The name of the extra data, with package prefix.
+     * @param value The double data value
      * @return this
      */
-    public Builder extra(String key, double value) {
+    public Builder extra(String name, double value) {
       requireIntent();
-      this.intent.putExtra(key, value);
+      this.intent.putExtra(name, value);
       return this;
     }
 
     /**
      * Puts a string extra.
      *
-     * @param key The key of the extra
-     * @param value The value of the extra
+     * @param name The name of the extra data, with package prefix.
+     * @param value The string data value
      * @return this
      */
-    public Builder extra(String key, String value) {
+    public Builder extra(String name, String value) {
       requireIntent();
-      this.intent.putExtra(key, value);
+      this.intent.putExtra(name, value);
+      return this;
+    }
+
+    /**
+     * Puts a byte array extra.
+     *
+     * @param name The name of the extra data, with package prefix.
+     * @param value The byte array data value
+     * @return this
+     */
+    public Builder extra(String name, byte[] value) {
+      requireIntent();
+      this.intent.putExtra(name, value);
+      return this;
+    }
+
+    /**
+     * Puts a int array extra.
+     *
+     * @param name The name of the extra data, with package prefix.
+     * @param value The int array data value
+     * @return this
+     */
+    public Builder extra(String name, int[] value) {
+      requireIntent();
+      this.intent.putExtra(name, value);
+      return this;
+    }
+
+    /**
+     * Puts a long array extra.
+     *
+     * @param name The name of the extra data, with package prefix.
+     * @param value The long array data value
+     * @return this
+     */
+    public Builder extra(String name, long[] value) {
+      requireIntent();
+      this.intent.putExtra(name, value);
+      return this;
+    }
+
+    /**
+     * Puts a boolean array extra.
+     *
+     * @param name The name of the extra data, with package prefix.
+     * @param value The boolean array data value
+     * @return this
+     */
+    public Builder extra(String name, boolean[] value) {
+      requireIntent();
+      this.intent.putExtra(name, value);
+      return this;
+    }
+
+    /**
+     * Puts a float array extra.
+     *
+     * @param name The name of the extra data, with package prefix.
+     * @param value The float array data value
+     * @return this
+     */
+    public Builder extra(String name, float[] value) {
+      requireIntent();
+      this.intent.putExtra(name, value);
+      return this;
+    }
+
+    /**
+     * Puts a double array extra.
+     *
+     * @param name The name of the extra data, with package prefix.
+     * @param value The double array data value
+     * @return this
+     */
+    public Builder extra(String name, double[] value) {
+      requireIntent();
+      this.intent.putExtra(name, value);
+      return this;
+    }
+
+    /**
+     * Puts a char sequence array extra.
+     *
+     * @param name The name of the extra data, with package prefix.
+     * @param value The CharSequence array data value
+     * @return this
+     */
+    public Builder extra(String name, CharSequence[] value) {
+      requireIntent();
+      this.intent.putExtra(name, value);
+      return this;
+    }
+
+    /**
+     * Puts a string array extra.
+     *
+     * @param name The name of the extra data, with package prefix.
+     * @param value The string array data value
+     * @return this
+     */
+    public Builder extra(String name, String[] value) {
+      requireIntent();
+      this.intent.putExtra(name, value);
+      return this;
+    }
+
+    /**
+     * Puts a parcelable extra.
+     *
+     * @param name The name of the extra data, with package prefix.
+     * @param value The Parcelable data value
+     * @return this
+     */
+    public Builder extra(String name, Parcelable value) {
+      requireIntent();
+      this.intent.putExtra(name, value);
+      return this;
+    }
+
+    /**
+     * Puts a parcelable array extra.
+     *
+     * @param name The name of the extra data, with package prefix.
+     * @param value The Parcelable array data value
+     * @return this
+     */
+    public Builder extra(String name, Parcelable[] value) {
+      requireIntent();
+      this.intent.putExtra(name, value);
+      return this;
+    }
+
+    /**
+     * PUts a serializable extra.
+     *
+     * @param name The name of the extra data, with package prefix.
+     * @param value The
+     * @return
+     */
+    public Builder extra(String name, Serializable value) {
+      requireIntent();
+      this.intent.putExtra(name, value);
       return this;
     }
 
@@ -383,6 +530,21 @@ public class ActivityDoorbell extends Doorbell {
     }
 
     /**
+     * Sets the transition animation to perform next.
+     *
+     * @param transition The transition animation
+     * @return this
+     */
+    public Builder transition(Transition transition) {
+      if (transition == null) {
+        return this;
+      }
+      this.enter = transition.getEnter();
+      this.exit  = transition.getExit();
+      return this;
+    }
+
+    /**
      * Sets the condition of the ringing.
      *
      * @param condition The condition to test
@@ -423,6 +585,11 @@ public class ActivityDoorbell extends Doorbell {
 
         @Override
         public void onBlock() {
+          // do nothing
+        }
+
+        @Override
+        public void onComplete() {
           // do nothing
         }
       });

@@ -21,15 +21,39 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.wujilin.doorbell;
+package com.wujilin.sample.doorbell;
 
-/**
- * The interface definition for callbacks to be invoked when ringing a doorbell.
- */
-public interface RingListener extends OnAllowListener, OnBlockListener {
+import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-  /**
-   * Called when the ringing is completed, after the {@link #onAllow()} method.
-   */
-  void onComplete();
+import com.wujilin.doorbell.Starter;
+import com.wujilin.doorbell.starter.Starters;
+
+public class Presenter implements Starter {
+
+  private Fragment fragment;
+
+  @Override
+  public void startActivity(Intent intent, Bundle options) {
+    // Take care of NPE
+    Starter starter = Starters.newFragmentStarter(fragment);
+    starter.startActivity(intent, options);
+  }
+
+  @Override
+  public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
+    // Take care of NPE
+    Starter starter = Starters.newFragmentStarter(fragment);
+    starter.startActivityForResult(intent, requestCode, options);
+  }
+
+  @Nullable
+  @Override
+  public Activity getActivity() {
+    // Take care of NPE
+    return fragment.getActivity();
+  }
 }

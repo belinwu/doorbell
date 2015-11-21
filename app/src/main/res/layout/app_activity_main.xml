@@ -35,19 +35,19 @@
             android:id="@+id/callback1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Doorbell.create(Allowable)\n.ring(RingListener)"
+            android:text="Doorbell.create(Condition)\n.ring(RingListener)"
             />
         <Button
             android:id="@+id/callback2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Doorbell.create(Allowable)\n.ring(OnAllowListener)"
+            android:text="Doorbell.create(Condition)\n.ring(OnAllowListener)"
             />
         <Button
             android:id="@+id/callback3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Doorbell.create(Allowable)\n.ring(OnBlockListener)"
+            android:text="Doorbell.create(Condition)\n.ring(OnBlockListener)"
             />
 
         <Button
@@ -90,19 +90,19 @@
             android:id="@+id/activity4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start SecondActivity test() ring(RingListener)"
+            android:text="Start SecondActivity condition() ring(RingListener)"
             />
         <Button
             android:id="@+id/activity5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start SecondActivity test() ring(OnAllowListener)"
+            android:text="Start SecondActivity condition() ring(OnAllowListener)"
             />
         <Button
             android:id="@+id/activity6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start SecondActivity test() ring(OnBlockListener)"
+            android:text="Start SecondActivity condition() ring(OnBlockListener)"
             />
         <Button
             android:id="@+id/activity7"

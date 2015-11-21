@@ -24,12 +24,22 @@ SOFTWARE.
 package com.wujilin.doorbell;
 
 /**
- * The interface definition for callbacks to be invoked when ringing a doorbell.
+ * A convenience class to extend when you only want to listen for a subset of ringing callbacks.
  */
-public interface RingListener extends OnAllowListener, OnBlockListener {
+public class SimpleRingListener implements RingListener {
 
-  /**
-   * Called when the ringing is completed, after the {@link #onAllow()} method.
-   */
-  void onComplete();
+  @Override
+  public void onComplete() {
+    // do nothing
+  }
+
+  @Override
+  public void onAllow() {
+    // do nothing
+  }
+
+  @Override
+  public void onBlock() {
+    // do nothing
+  }
 }

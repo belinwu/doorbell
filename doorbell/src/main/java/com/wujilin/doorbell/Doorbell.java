@@ -65,11 +65,15 @@ public class Doorbell {
    */
   private void ring() {
     if (door.test()) {
-      onAllow();
       if (involvedDoor != null) {
         involvedDoor.onAllow();
       }
       door.onAllow();
+      onAllow();
+      if (involvedDoor != null) {
+        involvedDoor.onComplete();
+      }
+      door.onComplete();
       return;
     }
 
@@ -82,7 +86,7 @@ public class Doorbell {
   /**
    * Called when this doorbell is allowed to ring.
    */
-  public void onAllow() {
+  protected void onAllow() {
     // do nothing
   }
 
@@ -231,6 +235,11 @@ public class Doorbell {
         public void onBlock() {
           listener.onBlock();
         }
+
+        @Override
+        public void onComplete() {
+          // do nothing
+        }
       });
     }
 
@@ -249,6 +258,11 @@ public class Doorbell {
 
         @Override
         public void onBlock() {
+          // do nothing
+        }
+
+        @Override
+        public void onComplete() {
           // do nothing
         }
       });
@@ -278,6 +292,11 @@ public class Doorbell {
         @Override
         public void onBlock() {
           listener.onBlock();
+        }
+
+        @Override
+        public void onComplete() {
+          listener.onComplete();
         }
       };
 

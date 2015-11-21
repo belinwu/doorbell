@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.wujilin.doorbell;
 
+import android.support.annotation.AnimRes;
+
 /**
  * The interface represents transition animation to perform next.
  */
@@ -33,6 +35,7 @@ public interface Transition {
    *
    * @return A resource ID of the animation resource to use for the incoming activity
    */
+  @AnimRes
   int getEnter();
 
   /**
@@ -40,5 +43,6 @@ public interface Transition {
    *
    * @return A resource ID of the animation resource to use for the outgoing activity
    */
+  @AnimRes
   int getExit();
 }

@@ -13,8 +13,8 @@ ext {
     gitUrl   = 'https://github.com/belinwu/doorbell.git'
     issueUrl = 'https://github.com/belinwu/doorbell/issues'
 
-    libraryVersionCode = 1
-    libraryVersion     = '0.1.0'
+    libraryVersionCode = 2
+    libraryVersion     = '0.2.0'
 
     developerId    = 'belinwu'
     developerName  = 'Belin Wu'

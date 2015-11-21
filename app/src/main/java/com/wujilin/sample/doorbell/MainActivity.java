@@ -137,6 +137,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
           public void onBlock() {
             toask("RingListener.onBlock() get called");
           }
+
+          @Override
+          public void onComplete() {
+            toask("RingListener.onComplete() get called");
+          }
         });
         break;
       case R.id.callback2:
@@ -175,6 +180,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
           @Override
           public void onBlock() {
             toask("RingListener.onBlock() get called");
+          }
+
+          @Override
+          public void onComplete() {
+            toask("RingListener.onComplete() get called");
           }
         });
         break;
@@ -236,6 +246,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
               public void onBlock() {
                 toask("RingListener.onBlock() get called");
               }
+
+              @Override
+              public void onComplete() {
+                toask("RingListener.onComplete() get called");
+              }
             });
         break;
       case R.id.activity5:
@@ -286,6 +301,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
               public void onBlock() {
                 toask("RingListener.onBlock() get called");
               }
+
+              @Override
+              public void onComplete() {
+                toask("RingListener.onComplete() get called");
+              }
             });
         break;
       case R.id.activity8:
@@ -311,8 +331,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             });
         break;
     }
-
-    Doorbell.with(this);
   }
 
   public void toask(String text) {
@@ -336,6 +354,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onBlock() {
       toask("LoginDoor.onBlock() get called");
+    }
+
+    @Override
+    public void onComplete() {
+      toask("LoginDoor.onComplete() get called");
     }
   }
 }

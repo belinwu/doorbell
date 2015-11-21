@@ -37,11 +37,16 @@ public class SimpleDoor implements Door {
 
   @Override
   public void onAllow() {
-    // Empty
+    // do nothing
+  }
+
+  @Override
+  public void onComplete() {
+    // do nothing
   }
 
   @Override
   public void onBlock() {
-    // Empty
+    // do nothing
   }
 }
