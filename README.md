@@ -1,5 +1,7 @@
 # Doorbell
 
+[![Bintray](https://api.bintray.com/packages/belinwu/maven/doorbell/images/download.svg)](https://bintray.com/belinwu/maven/doorbell/_latestVersion)
+
 A simple library to start activities or call callbacks with condition in your Android apps.
 
 This is an **alpha** library until V1.0.0 is released.
