@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            />
+        <Button
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            />
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            />
+
+        <Button
+            android:id="@+id/callback1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Doorbell.create(Allowable)\n.ring(RingListener)"
+            />
+        <Button
+            android:id="@+id/callback2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Doorbell.create(Allowable)\n.ring(OnAllowListener)"
+            />
+        <Button
+            android:id="@+id/callback3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Doorbell.create(Allowable)\n.ring(OnBlockListener)"
+            />
+
+        <Button
+            android:id="@+id/callback4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Doorbell.create(Door)\n.ring(RingListener)"
+            />
+        <Button
+            android:id="@+id/callback5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Doorbell.create(Door)\n.ring(OnAllowListener)"
+            />
+        <Button
+            android:id="@+id/callback6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Doorbell.create(Door)\n.ring(OnBlockListener)"
+            />
+        <Button
+            android:id="@+id/activity1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start SecondActivity ring()"
+            />
+        <Button
+            android:id="@+id/activity2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start SecondActivity test() ring()"
+            />
+        <Button
+            android:id="@+id/activity3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start SecondActivity door() ring()"
+            />
+        <Button
+            android:id="@+id/activity4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start SecondActivity test() ring(RingListener)"
+            />
+        <Button
+            android:id="@+id/activity5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start SecondActivity test() ring(OnAllowListener)"
+            />
+        <Button
+            android:id="@+id/activity6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start SecondActivity test() ring(OnBlockListener)"
+            />
+        <Button
+            android:id="@+id/activity7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start SecondActivity door() ring(RingListenr)"
+            />
+        <Button
+            android:id="@+id/activity8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start SecondActivity door() ring(OnAllowListenr)"
+            />
+        <Button
+            android:id="@+id/activity9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start SecondActivity door() ring(OnBlockListenr)"
+            />
+    </LinearLayout>
+</ScrollView>
