@@ -35,7 +35,7 @@ import android.support.annotation.Nullable;
  * @see com.wujilin.doorbell.starter.ActivityStarter
  * @see com.wujilin.doorbell.starter.FragmentStarter
  */
-public interface Starter {
+public interface Starter extends Transition {
 
   /**
    * Starts the activity.

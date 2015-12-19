@@ -30,8 +30,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 
-import com.wujilin.doorbell.Starter;
-
 import java.lang.ref.WeakReference;
 
 import static android.os.Build.VERSION.SDK_INT;
@@ -40,7 +38,7 @@ import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 /**
  * The context starter to start activities.
  */
-class ContextStarter implements Starter {
+class ContextStarter extends AbstractStarter {
 
   /**
    * The weak reference to the context.

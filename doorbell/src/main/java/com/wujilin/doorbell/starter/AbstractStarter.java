@@ -23,51 +23,43 @@ SOFTWARE.
 */
 package com.wujilin.doorbell.starter;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import com.wujilin.doorbell.Starter;
+import com.wujilin.doorbell.Transition;
 
-import java.lang.ref.WeakReference;
+import static com.wujilin.doorbell.Doorbell.getDefaultEnter;
+import static com.wujilin.doorbell.Doorbell.getDefaultExit;
 
 /**
- * The activity starter to start activities.
+ * The abstract implementation of the Starter interface.
  */
-class ActivityStarter extends AbstractStarter {
+public abstract class AbstractStarter implements Starter {
+  private int enterId = getDefaultEnter();
+  private int exitId  = getDefaultExit();
 
-  /**
-   * The weak reference to the activity.
-   */
-  private WeakReference<Activity> activityReference;
+  public AbstractStarter() {
 
-  /**
-   *
-   * @param activity The activity
-   */
-  public ActivityStarter(Activity activity) {
-    this.activityReference = new WeakReference<>(activity);
   }
 
-  @Override
-  public void startActivity(Intent intent, Bundle options) {
-    Activity activity = activityReference.get();
-    if (activity == null) {
+  public AbstractStarter(Transition transition) {
+    if (transition == null) {
       return;
     }
-    ActivityCompat.startActivity(activity, intent, options);
+    this.enterId = transition.getEnter();
+    this.exitId  = transition.getExit();
+  }
+
+  public AbstractStarter(int enterId, int exitId) {
+    this.enterId = enterId;
+    this.exitId  = exitId;
+  }
+
+    @Override
+  public int getEnter() {
+    return enterId;
   }
 
   @Override
-  public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
-    Activity activity = activityReference.get();
-    if (activity == null) {
-      return;
-    }
-    ActivityCompat.startActivityForResult(activity, intent, requestCode, options);
-  }
-
-  @Override
-  public Activity getActivity() {
-    return activityReference.get();
+  public int getExit() {
+    return exitId;
   }
 }

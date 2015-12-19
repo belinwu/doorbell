@@ -39,11 +39,10 @@ import com.wujilin.doorbell.Starter;
 import com.wujilin.doorbell.Transition;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
-import static com.wujilin.doorbell.starter.Starters.newActivityStarter;
-import static com.wujilin.doorbell.starter.Starters.newContextStarter;
-import static com.wujilin.doorbell.starter.Starters.newFragmentStarter;
+import static com.wujilin.doorbell.starter.Starters.newStarter;
+import static com.wujilin.doorbell.starter.Starters.newStarter;
+import static com.wujilin.doorbell.starter.Starters.newStarter;
 import static com.wujilin.doorbell.util.Objects.requireNonNull;
 
 /**
@@ -67,7 +66,7 @@ public class ActivityDoorbell extends Doorbell {
   private int requestCode;
 
   /**
-   * The intent for strating activities
+   * The intent for starting activities
    */
   private Intent intent;
 
@@ -84,7 +83,7 @@ public class ActivityDoorbell extends Doorbell {
   /**
    * Constructs a new activity doorbell.
    *
-   * @param builder The builder to build the actvity doorbell
+   * @param builder The builder to build the activity doorbell
    */
   private ActivityDoorbell(final Builder builder) {
     super(builder);
@@ -123,15 +122,9 @@ public class ActivityDoorbell extends Doorbell {
       return;
     }
 
-    int enterId = 0;
-    int exitId  = 0;
-
-    // if the starter is a transition
-    if (starter instanceof Transition) {
-      Transition transition = (Transition) starter;
-      enterId = transition.getEnter();
-      exitId  = transition.getExit();
-    }
+    // get the transition of the starter
+    int enterId = starter.getEnter();
+    int exitId  = starter.getExit();
 
     // if the transition of the doorbell is given
     if (transition != null) {
@@ -183,7 +176,7 @@ public class ActivityDoorbell extends Doorbell {
      * @param context The context to start activities
      */
     public Builder(Context context) {
-      this(newContextStarter(context));
+      this(newStarter(context));
     }
 
     /**
@@ -192,7 +185,7 @@ public class ActivityDoorbell extends Doorbell {
      * @param activity The activity to start activities
      */
     public Builder(Activity activity) {
-      this(newActivityStarter(activity));
+      this(newStarter(activity));
     }
 
     /**
@@ -201,7 +194,7 @@ public class ActivityDoorbell extends Doorbell {
      * @param fragment The fragment to start acitvities
      */
     public Builder(Fragment fragment) {
-      this(newFragmentStarter(fragment));
+      this(newStarter(fragment));
     }
 
     /**

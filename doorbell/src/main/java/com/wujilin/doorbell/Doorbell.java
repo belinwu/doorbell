@@ -41,6 +41,11 @@ import static com.wujilin.doorbell.util.Objects.requireNonNull;
 public class Doorbell {
 
   /**
+   * The default transition to override when launching activities
+   */
+  public static Transition defaultTransition;
+
+  /**
    * The door
    */
   private Door door;
@@ -174,6 +179,53 @@ public class Doorbell {
       return;
     }
     door.onBlock();
+  }
+
+  /**
+   * Return the default transition to use for the incoming activity.
+   *
+   * @return The resource ID of the animation resource to use for the incoming activity.
+   */
+  public static int getDefaultEnter() {
+    return defaultTransition == null ? 0 : defaultTransition.getEnter();
+  }
+
+  /**
+   * Return the default transition to use for the outgoing activity.
+   *
+   * @return The resource ID of the animation resource to use for the outgoing activity.
+   */
+  public static int getDefaultExit() {
+    return defaultTransition == null ? 0 : defaultTransition.getExit();
+  }
+
+  /**
+   * Setup the default transition to override when launching the activities.
+   *
+   * @param transition The default transition
+   */
+  public static void defaultTransition(Transition transition) {
+    defaultTransition = transition;
+  }
+
+  /**
+   * Setup the default resource ID of the animation resource to use for the incoming/outgoing activity.
+   *
+   * @param enter The resource ID of the animation resource to use for the incoming activity.
+   * @param exit The resource ID of the animation resource to use for the outgoing activity.
+   */
+  public static void defaultTransition(final int enter, final int exit) {
+    defaultTransition = new Transition() {
+      @Override
+      public int getEnter() {
+        return enter;
+      }
+
+      @Override
+      public int getExit() {
+        return exit;
+      }
+    };
   }
 
   /**

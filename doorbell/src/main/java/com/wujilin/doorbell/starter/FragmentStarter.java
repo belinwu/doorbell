@@ -28,14 +28,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.wujilin.doorbell.Starter;
-
 import java.lang.ref.WeakReference;
 
 /**
  * The fragment starter to start activities.
  */
-class FragmentStarter implements Starter {
+class FragmentStarter extends AbstractStarter {
   /**
    * The weak refrence to the fragment.
    */

@@ -46,7 +46,7 @@ public final class Starters {
    * @param context The context to start activities
    * @return The context starter or null if context is null
    */
-  public static Starter newContextStarter(Context context) {
+  public static Starter newStarter(Context context) {
     if (context == null) {
       return null;
     }
@@ -62,7 +62,7 @@ public final class Starters {
    * @param activity The activity to start activities
    * @return The activity starter or null if context is null
    */
-  public static Starter newActivityStarter(Activity activity) {
+  public static Starter newStarter(Activity activity) {
     if (activity == null) {
       return null;
     }
@@ -76,9 +76,9 @@ public final class Starters {
    * Creates a new fragment starter.
    *
    * @param fragment The fragment to start activities
-   * @return The fragment starter or null if fragmetn is null
+   * @return The fragment starter or null if fragment is null
    */
-  public static Starter newFragmentStarter(Fragment fragment) {
+  public static Starter newStarter(Fragment fragment) {
     if (fragment == null) {
       return null;
     }
