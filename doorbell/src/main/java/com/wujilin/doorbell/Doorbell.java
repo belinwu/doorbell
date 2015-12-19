@@ -25,15 +25,13 @@ package com.wujilin.doorbell;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.AnimRes;
 import android.support.v4.app.Fragment;
-
-import com.wujilin.doorbell.impl.ActivityDoorbell;
-import com.wujilin.doorbell.impl.CallbackDoorbell;
 
 import static com.wujilin.doorbell.util.Objects.requireNonNull;
 
 /**
- * The class represents the requests to be sent like a doorbell can be rung.
+ * The class represents the requests to be sent like a doorbell can be rung. <br /><br />
  *
  * @see ActivityDoorbell
  * @see CallbackDoorbell
@@ -41,12 +39,17 @@ import static com.wujilin.doorbell.util.Objects.requireNonNull;
 public class Doorbell {
 
   /**
-   * The default transition to override when launching activities
+   * The default resource ID of the animation resource to use for the incoming activity
    */
-  public static Transition defaultTransition;
+  private static int defaultEnter;
 
   /**
-   * The door
+   * The default resource ID of the animation resource to use for the outgoing activity
+   */
+  private static int defaultExit;
+
+  /**
+   * The door of the doorbell
    */
   private Door door;
 
@@ -69,23 +72,43 @@ public class Doorbell {
    * Ring the doorbell.
    */
   private void ring() {
-    if (door.test()) {
-      if (involvedDoor != null) {
-        involvedDoor.onAllow();
-      }
-      door.onAllow();
-      onAllow();
-      if (involvedDoor != null) {
-        involvedDoor.onComplete();
-      }
-      door.onComplete();
+    if (!door.test()) {
+      callOnBlock();
       return;
     }
+    callOnAllow();
+    callOnComplete();
+  }
 
+  /**
+   * Calls the onBlock callbacks.
+   */
+  private void callOnBlock() {
     if (involvedDoor != null) {
       involvedDoor.onBlock();
     }
     door.onBlock();
+  }
+
+  /**
+   * Calls the onAllow callbacks.
+   */
+  private void callOnAllow() {
+    if (involvedDoor != null) {
+      involvedDoor.onAllow();
+    }
+    door.onAllow();
+    onAllow();
+  }
+
+  /**
+   * Calls the onComplete callbacks.
+   */
+  private void callOnComplete() {
+    if (involvedDoor != null) {
+      involvedDoor.onComplete();
+    }
+    door.onComplete();
   }
 
   /**
@@ -176,6 +199,7 @@ public class Doorbell {
     }
     if (door.test()) {
       door.onAllow();
+      door.onComplete();
       return;
     }
     door.onBlock();
@@ -187,7 +211,7 @@ public class Doorbell {
    * @return The resource ID of the animation resource to use for the incoming activity.
    */
   public static int getDefaultEnter() {
-    return defaultTransition == null ? 0 : defaultTransition.getEnter();
+    return defaultEnter;
   }
 
   /**
@@ -196,16 +220,7 @@ public class Doorbell {
    * @return The resource ID of the animation resource to use for the outgoing activity.
    */
   public static int getDefaultExit() {
-    return defaultTransition == null ? 0 : defaultTransition.getExit();
-  }
-
-  /**
-   * Setup the default transition to override when launching the activities.
-   *
-   * @param transition The default transition
-   */
-  public static void defaultTransition(Transition transition) {
-    defaultTransition = transition;
+    return defaultExit;
   }
 
   /**
@@ -214,18 +229,9 @@ public class Doorbell {
    * @param enter The resource ID of the animation resource to use for the incoming activity.
    * @param exit The resource ID of the animation resource to use for the outgoing activity.
    */
-  public static void defaultTransition(final int enter, final int exit) {
-    defaultTransition = new Transition() {
-      @Override
-      public int getEnter() {
-        return enter;
-      }
-
-      @Override
-      public int getExit() {
-        return exit;
-      }
-    };
+  public static void defaultTransition(@AnimRes final int enter, @AnimRes final int exit) {
+    defaultEnter = enter;
+    defaultExit  = exit;
   }
 
   /**

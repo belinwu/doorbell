@@ -15,7 +15,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SendActivity">
-
+        </activity>
+        <activity android:name=".ThirdActivity">
         </activity>
     </application>
 

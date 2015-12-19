@@ -23,26 +23,56 @@ SOFTWARE.
 */
 package com.wujilin.doorbell;
 
-import android.support.annotation.AnimRes;
-
 /**
- * The interface represents transition animation to perform next.
+ * The class represents a doorbell to ring to call the callback.
  */
-public interface Transition {
+class CallbackDoorbell extends Doorbell {
 
   /**
-   * Returns a resource ID of the animation resource to use for the incoming activity.
+   * Contructs a new callback doorbell.
    *
-   * @return A resource ID of the animation resource to use for the incoming activity
+   * @param builder The builder to build the callback doorbell
    */
-  @AnimRes
-  int getEnter();
+  private CallbackDoorbell(Builder builder) {
+    super(builder);
+  }
 
   /**
-   * Returns a resource ID of the animation resource to use for the outgoing activity.
-   *
-   * @return A resource ID of the animation resource to use for the outgoing activity
+   * The callback doorbell builder.
    */
-  @AnimRes
-  int getExit();
+  public static class Builder extends Doorbell.Builder {
+
+    /**
+     * Construct a new builder.
+     *
+     * @param condition The condition to test
+     */
+    public Builder(boolean condition) {
+      condition(condition);
+    }
+
+    /**
+     * Constructs a new builder.
+     *
+     * @param condition The condition to test
+     */
+    public Builder(Condition condition) {
+      boolean test = condition == null || condition.test();
+      condition(test);
+    }
+
+    /**
+     * Contructs a new builder.
+     *
+     * @param door The door gets involved
+     */
+    public Builder(Door door) {
+      door(door);
+    }
+
+    @Override
+    protected Doorbell build() {
+      return new CallbackDoorbell(this);
+    }
+  }
 }

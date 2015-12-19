@@ -15,7 +15,7 @@ Doorbell is available on jCenter.
 Gradle:
 
 ```
-compile 'com.wujilin.doorbell:doorbell:0.2.0'
+compile 'com.wujilin.doorbell:doorbell:0.3.0'
 ```
 
 # How do I use Doorbell?

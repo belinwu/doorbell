@@ -28,9 +28,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
 import android.support.v4.app.ActivityCompat;
-
-import java.lang.ref.WeakReference;
+import android.support.v4.content.ContextCompat;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
@@ -38,56 +38,55 @@ import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 /**
  * The context starter to start activities.
  */
-class ContextStarter extends AbstractStarter {
+class ContextStarter extends AbstractStarter<Context> {
 
   /**
-   * The weak reference to the context.
-   */
-  private WeakReference<Context> contextReference;
-
-  /**
-   * Constructs a context starter.
+   * Constructs a new context starter.
    *
    * @param context The context to start activities
    */
   public ContextStarter(Context context) {
-    this.contextReference = new WeakReference<>(context);
+    super(context);
+  }
+
+  /**
+   * Constructs a new context starter.
+   *
+   * @param context The context to start activity
+   * @param enter A resource ID of the animation resource to use for the incoming activity
+   * @param exit A resource ID of the animation resource to use for the outgoing activity
+   */
+  public ContextStarter(Context context, @AnimRes int enter, @AnimRes int exit) {
+    super(context, enter, exit);
   }
 
   @Override
   @TargetApi(16)
-  public void startActivity(Intent intent, Bundle options) {
-    Context context = contextReference.get();
-    if (context == null) {
-      return;
-    }
+  public void startActivity(Context starter, Intent intent, Bundle options) {
     if (SDK_INT >= JELLY_BEAN) {
-      context.startActivity(intent, options);
+      starter.startActivity(intent, options);
       return;
     }
-    context.startActivity(intent);
+    starter.startActivity(intent);
   }
 
   @Override
-  public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
-    Context context = contextReference.get();
-    if (context == null) {
-      return;
-    }
-    if (context instanceof Activity) {
-      Activity activity = (Activity) context;
+  public void startActivityForResult(Context starter, Intent intent, int requestCode, Bundle options) {
+    if (starter instanceof Activity) {
+      Activity activity = (Activity) starter;
       ActivityCompat.startActivityForResult(activity, intent, requestCode, options);
     }
   }
 
   @Override
-  public Activity getActivity() {
-    Context context = contextReference.get();
-    if (context == null) {
-      return null;
-    }
-    if (context instanceof Activity) {
-      return (Activity) context;
+  public void startActivities(Context starter, Intent[] intents, Bundle options) {
+    ContextCompat.startActivities(starter, intents, options);
+  }
+
+  @Override
+  public Activity getActivity(Context starter) {
+    if (starter instanceof Activity) {
+      return (Activity) starter;
     }
     return null;
   }

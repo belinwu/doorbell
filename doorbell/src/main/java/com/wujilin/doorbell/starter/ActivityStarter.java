@@ -26,48 +26,51 @@ package com.wujilin.doorbell.starter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
 import android.support.v4.app.ActivityCompat;
-
-import java.lang.ref.WeakReference;
 
 /**
  * The activity starter to start activities.
  */
-class ActivityStarter extends AbstractStarter {
+class ActivityStarter extends AbstractStarter<Activity> {
 
   /**
-   * The weak reference to the activity.
-   */
-  private WeakReference<Activity> activityReference;
-
-  /**
+   * Constructs a new activity starter.
    *
-   * @param activity The activity
+   * @param activity The activity to start activity
    */
   public ActivityStarter(Activity activity) {
-    this.activityReference = new WeakReference<>(activity);
+    super(activity);
+  }
+
+  /**
+   * Constructs a new activity starter.
+   *
+   * @param activity The activity
+   * @param enter A resource ID of the animation resource to use for the incoming activity
+   * @param exit A resource ID of the animation resource to use for the outgoing activity
+   */
+  public ActivityStarter(Activity activity, @AnimRes int enter, @AnimRes int exit) {
+    super(activity, enter, exit);
   }
 
   @Override
-  public void startActivity(Intent intent, Bundle options) {
-    Activity activity = activityReference.get();
-    if (activity == null) {
-      return;
-    }
-    ActivityCompat.startActivity(activity, intent, options);
+  public void startActivity(Activity starter, Intent intent, Bundle options) {
+    ActivityCompat.startActivity(starter, intent, options);
   }
 
   @Override
-  public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
-    Activity activity = activityReference.get();
-    if (activity == null) {
-      return;
-    }
-    ActivityCompat.startActivityForResult(activity, intent, requestCode, options);
+  public void startActivityForResult(Activity starter, Intent intent, int requestCode, Bundle options) {
+    ActivityCompat.startActivityForResult(starter, intent, requestCode, options);
   }
 
   @Override
-  public Activity getActivity() {
-    return activityReference.get();
+  public void startActivities(Activity starter, Intent[] intents, Bundle options) {
+    ActivityCompat.startActivities(starter, intents, options);
+  }
+
+  @Override
+  public Activity getActivity(Activity starter) {
+    return starter;
   }
 }

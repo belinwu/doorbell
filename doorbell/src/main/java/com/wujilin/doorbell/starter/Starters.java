@@ -25,6 +25,7 @@ package com.wujilin.doorbell.starter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.AnimRes;
 import android.support.v4.app.Fragment;
 
 import com.wujilin.doorbell.Starter;
@@ -44,47 +45,65 @@ public final class Starters {
    * Creates a new context starter.
    *
    * @param context The context to start activities
-   * @return The context starter or null if context is null
+   * @return The context starter
    */
   public static Starter newStarter(Context context) {
-    if (context == null) {
-      return null;
-    }
-    if (context instanceof Starter) {
-      return (Starter) context;
-    }
     return new ContextStarter(context);
+  }
+
+  /**
+   * Creates a new context starter.
+   *
+   * @param context The context to start activity
+   * @param enter The animation resource for incomming activity
+   * @param exit The animation resrouce for outgoing activity
+   * @return The context starter
+   */
+  public static Starter newStarter(Context context, @AnimRes int enter, @AnimRes int exit) {
+    return new ContextStarter(context, enter, exit);
   }
 
   /**
    * Creates a new activity starter.
    *
-   * @param activity The activity to start activities
-   * @return The activity starter or null if context is null
+   * @param activity The activity to start activity
+   * @return The activity starter
    */
   public static Starter newStarter(Activity activity) {
-    if (activity == null) {
-      return null;
-    }
-    if (activity instanceof Starter) {
-      return (Starter) activity;
-    }
     return new ActivityStarter(activity);
+  }
+
+  /**
+   * Creates a new activity starter.
+   *
+   * @param activity The activity to start activity
+   * @param enter The animation resource for incomming activity
+   * @param exit The animation resrouce for outgoing activity
+   * @return The activity starter
+   */
+  public static Starter newStarter(Activity activity, @AnimRes int enter, @AnimRes int exit) {
+    return new ActivityStarter(activity, enter, exit);
+  }
+
+  /**
+   * Creates a fragment starter.
+   *
+   * @param fragment The fragment to start activity
+   * @return The fragment starter
+   */
+  public static Starter newStarter(Fragment fragment) {
+    return new FragmentStarter(fragment);
   }
 
   /**
    * Creates a new fragment starter.
    *
-   * @param fragment The fragment to start activities
-   * @return The fragment starter or null if fragment is null
+   * @param fragment The fragment to start activity
+   * @param enter The animation resource for incomming activity
+   * @param exit The animation resrouce for outgoing activity
+   * @return The fragment starter
    */
-  public static Starter newStarter(Fragment fragment) {
-    if (fragment == null) {
-      return null;
-    }
-    if (fragment instanceof Starter) {
-      return (Starter) fragment;
-    }
-    return new FragmentStarter(fragment);
+  public static Starter newStarter(Fragment fragment, @AnimRes int enter, @AnimRes int exit) {
+    return new FragmentStarter(fragment, enter, exit);
   }
 }

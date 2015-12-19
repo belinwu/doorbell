@@ -57,6 +57,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
   private Button activity7;
   private Button activity8;
   private Button activity9;
+  private Button activity10;
   private boolean logined;
 
   private LoginDoor loginDoor = new LoginDoor();
@@ -85,6 +86,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     activity7 = (Button) findViewById(R.id.activity7);
     activity8 = (Button) findViewById(R.id.activity8);
     activity9 = (Button) findViewById(R.id.activity9);
+    activity10 = (Button) findViewById(R.id.activity10);
     login = (Button) findViewById(R.id.login);
     logout = (Button) findViewById(R.id.logout);
     status = (TextView) findViewById(R.id.status);
@@ -106,6 +108,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     activity7.setOnClickListener(this);
     activity8.setOnClickListener(this);
     activity9.setOnClickListener(this);
+    activity10.setOnClickListener(this);
     login.setOnClickListener(this);
     logout.setOnClickListener(this);
   }
@@ -329,6 +332,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 toask("OnBlockListener.onBlock() get called");
               }
             });
+        break;
+      case R.id.activity10:
+        Doorbell.defaultTransition(R.anim.app_push_left_in, R.anim.app_navigtor_pop_right_out);
+        Doorbell.with(this)
+            .start(SendActivity.class, ThirdActivity.class)
+            .extra("name", "Doorbell")
+            .ring();
         break;
     }
   }

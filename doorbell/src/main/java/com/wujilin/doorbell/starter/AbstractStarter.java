@@ -23,37 +23,96 @@ SOFTWARE.
 */
 package com.wujilin.doorbell.starter;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.wujilin.doorbell.Starter;
-import com.wujilin.doorbell.Transition;
+
+import java.lang.ref.WeakReference;
 
 import static com.wujilin.doorbell.Doorbell.getDefaultEnter;
 import static com.wujilin.doorbell.Doorbell.getDefaultExit;
 
 /**
- * The abstract implementation of the Starter interface.
+ * The abstract implementation of the {@link Starter} interface.
  */
-public abstract class AbstractStarter implements Starter {
-  private int enterId = getDefaultEnter();
-  private int exitId  = getDefaultExit();
+public abstract class AbstractStarter<T> implements Starter {
 
-  public AbstractStarter() {
+  /**
+   * A resource ID of the animation resource to use for the incoming activity
+   */
+  private int enterId;
 
+  /**
+   * A resource ID of the animation resource to use for the outgoing activity
+   */
+  private int exitId;
+
+  /**
+   * The weak reference to the starter.
+   */
+  private WeakReference<T> starterReference;
+
+  /**
+   * The default constructor.
+   */
+  public AbstractStarter(T starter) {
+    this(starter, getDefaultEnter(), getDefaultExit());
   }
 
-  public AbstractStarter(Transition transition) {
-    if (transition == null) {
+  /**
+   * Constructs a starter with the animation resource of transition.
+   *
+   * @param starter The starter to start activity
+   * @param enterId A resource ID of the animation resource to use for the incoming activity
+   * @param exitId A resource ID of the animation resource to use for the outgoing activity
+   */
+  public AbstractStarter(T starter, int enterId, int exitId) {
+    starterReference = new WeakReference<>(starter);
+    this.enterId     = enterId;
+    this.exitId      = exitId;
+  }
+
+  @Override
+  public final void startActivity(Intent intent, Bundle options) {
+    T starter = starterReference.get();
+    if (starter == null) {
       return;
     }
-    this.enterId = transition.getEnter();
-    this.exitId  = transition.getExit();
+    startActivity(starter, intent, options);
   }
 
-  public AbstractStarter(int enterId, int exitId) {
-    this.enterId = enterId;
-    this.exitId  = exitId;
+  @Override
+  public final void startActivityForResult(Intent intent, int requestCode, Bundle options) {
+    T starter = starterReference.get();
+    if (starter == null) {
+      return;
+    }
+    startActivityForResult(starter, intent, requestCode, options);
   }
 
-    @Override
+  @Override
+  public final void startActivities(Intent[] intents, Bundle options) {
+    T starter = starterReference.get();
+    if (starter == null) {
+      return;
+    }
+    startActivities(starter, intents, options);
+  }
+
+  @Nullable
+  @Override
+  public final Activity getActivity() {
+    T starter = starterReference.get();
+    if (starter == null) {
+      return null;
+    }
+    return getActivity(starter);
+  }
+
+  @Override
   public int getEnter() {
     return enterId;
   }
@@ -62,4 +121,40 @@ public abstract class AbstractStarter implements Starter {
   public int getExit() {
     return exitId;
   }
+
+  /**
+   * Starts the activity.
+   *
+   * @param starter The starter to start activity
+   * @param intent The intent to start
+   * @param options Additional options for how the Activity should be started
+   */
+  public abstract void startActivity(T starter, Intent intent, Bundle options);
+
+  /**
+   * Starts the activity for result.
+   *
+   * @param starter The starter to start activity
+   * @param intent The intent to start
+   * @param requestCode The request code for result
+   * @param options Additional options for how the Activity should be started
+   */
+  public abstract void startActivityForResult(T starter, Intent intent, int requestCode, Bundle options);
+
+  /**
+   * Starts the multiple activities.
+   *
+   * @param starter The starter to start activity
+   * @param intents The intents to start
+   * @param options Additional options for how the Activity should be started
+   */
+  public abstract void startActivities(T starter, Intent[] intents, Bundle options);
+
+  /**
+   * Returns the current activity.
+   *
+   * @param starter The starter to start activity
+   * @return The current activity
+   */
+  public abstract Activity getActivity(T starter);
 }

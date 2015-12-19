@@ -26,9 +26,13 @@ package com.wujilin.sample.doorbell;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.widget.TextView;
 
-public class SendActivity extends Activity {
+import com.wujilin.doorbell.Doorbell;
+import com.wujilin.doorbell.Starter;
+
+public class SendActivity extends Activity implements Starter {
 
   private TextView extras;
 
@@ -40,5 +44,21 @@ public class SendActivity extends Activity {
     extras = (TextView) findViewById(R.id.extras);
     Intent intent = getIntent();
     extras.setText(intent.getExtras().getString("name"));
+  }
+
+  @Override
+  public int getEnter() {
+    return 0;
+  }
+
+  @Override
+  public int getExit() {
+    return 0;
+  }
+
+  @Nullable
+  @Override
+  public Activity getActivity() {
+    return null;
   }
 }

@@ -26,6 +26,7 @@ package com.wujilin.doorbell;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
 import android.support.annotation.Nullable;
 
 /**
@@ -35,7 +36,7 @@ import android.support.annotation.Nullable;
  * @see com.wujilin.doorbell.starter.ActivityStarter
  * @see com.wujilin.doorbell.starter.FragmentStarter
  */
-public interface Starter extends Transition {
+public interface Starter {
 
   /**
    * Starts the activity.
@@ -46,6 +47,7 @@ public interface Starter extends Transition {
   void startActivity(Intent intent, Bundle options);
 
   /**
+   * Starts the activity for the result.
    *
    * @param intent The description of the activity to start
    * @param requestCode The code that will be returned with onActivityResult() identifying this
@@ -53,6 +55,30 @@ public interface Starter extends Transition {
    * @param options Additional options for how the Activity should be started
    */
   void startActivityForResult(Intent intent, int requestCode, Bundle options);
+
+  /**
+   * Starts multiple activities.
+   *
+   * @param intents The intents to start.
+   * @param options Additional options for how the activities should be started.
+   */
+  void startActivities(Intent[] intents, Bundle options);
+
+  /**
+   * Returns a resource ID of the animation resource to use for the incoming activity.
+   *
+   * @return A resource ID of the animation resource to use for the incoming activity
+   */
+  @AnimRes
+  int getEnter();
+
+  /**
+   * Returns a resource ID of the animation resource to use for the outgoing activity.
+   *
+   * @return A resource ID of the animation resource to use for the outgoing activity
+   */
+  @AnimRes
+  int getExit();
 
   /**
    * Return the current activity.

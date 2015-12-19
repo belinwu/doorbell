@@ -24,48 +24,40 @@ SOFTWARE.
 package com.wujilin.sample.doorbell;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import com.wujilin.doorbell.Starter;
-import com.wujilin.doorbell.starter.Starters;
 
-public class Presenter implements Starter {
-  Starter starter = Starters.newStarter(new Fragment());
+public class ThirdActivity extends Activity implements Starter {
+
+  private TextView extras;
 
   @Override
-  public void startActivity(Intent intent, Bundle options) {
-    // Take care of NPE
-    starter.startActivity(intent, options);
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.app_activity_third);
+
+    extras = (TextView) findViewById(R.id.extras);
+    Intent intent = getIntent();
+    extras.setText(intent.getExtras().getString("name"));
   }
 
   @Override
-  public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
-    // Take care of NPE
-    starter.startActivityForResult(intent, requestCode, options);
+  public int getEnter() {
+    return 0;
   }
 
   @Override
-  public void startActivities(Intent[] intents, Bundle options) {
-    starter.startActivities(intents, options);
+  public int getExit() {
+    return 0;
   }
 
   @Nullable
   @Override
   public Activity getActivity() {
-    // Take care of NPE
-    return starter.getActivity();
-  }
-
-  @Override
-  public int getEnter() {
-    return starter.getEnter();
-  }
-
-  @Override
-  public int getExit() {
-    return starter.getEnter();
+    return null;
   }
 }

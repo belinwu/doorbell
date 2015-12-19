@@ -26,50 +26,56 @@ package com.wujilin.doorbell.starter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-
-import java.lang.ref.WeakReference;
 
 /**
  * The fragment starter to start activities.
  */
-class FragmentStarter extends AbstractStarter {
-  /**
-   * The weak refrence to the fragment.
-   */
-  private WeakReference<Fragment> fragmentReference;
+class FragmentStarter extends AbstractStarter<Fragment> {
 
   /**
-   * Constructs a FragmentStarter with the given fragment object.
+   * Constructs a new fragment starter.
    *
-   * @param fragment The fragment object
+   * @param fragment The fragment to start activity
    */
   public FragmentStarter(Fragment fragment) {
-    this.fragmentReference = new WeakReference<>(fragment);
+    super(fragment);
+  }
+
+  /**
+   * Constructs a new fragment starter.
+   *
+   * @param fragment The fragment to start activity
+   * @param enter A resource ID of the animation resource to use for the incoming activity
+   * @param exit A resource ID of the animation resource to use for the outgoing activity
+   */
+  public FragmentStarter(Fragment fragment, @AnimRes int enter, @AnimRes int exit) {
+    super(fragment, enter, exit);
   }
 
   @Override
-  public void startActivity(Intent intent, Bundle options) {
-    Fragment fragment = fragmentReference.get();
-    if (fragment != null) {
-      fragment.startActivity(intent);
-    }
+  public void startActivity(Fragment starter, Intent intent, Bundle options) {
+    starter.startActivity(intent);
   }
 
   @Override
-  public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
-    Fragment fragment = fragmentReference.get();
-    if (fragment != null) {
-      fragment.startActivityForResult(intent, requestCode);
-    }
+  public void startActivityForResult(Fragment starter, Intent intent, int requestCode, Bundle options) {
+    starter.startActivityForResult(intent, requestCode);
   }
 
   @Override
-  public Activity getActivity() {
-    Fragment fragment = fragmentReference.get();
-    if (fragment == null) {
-      return null;
+  public void startActivities(Fragment starter, Intent[] intents, Bundle options) {
+    Activity activity = getActivity();
+    if (activity == null) {
+      return;
     }
-    return fragment.getActivity();
+    ActivityCompat.startActivities(activity, intents, options);
+  }
+
+  @Override
+  public Activity getActivity(Fragment starter) {
+    return starter.getActivity();
   }
 }

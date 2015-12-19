@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.wujilin.doorbell.impl;
+package com.wujilin.doorbell;
 
 import android.app.Activity;
 import android.content.Context;
@@ -31,24 +31,15 @@ import android.os.Parcelable;
 import android.support.annotation.AnimRes;
 import android.support.v4.app.Fragment;
 
-import com.wujilin.doorbell.Condition;
-import com.wujilin.doorbell.Door;
-import com.wujilin.doorbell.Doorbell;
-import com.wujilin.doorbell.RingListener;
-import com.wujilin.doorbell.Starter;
-import com.wujilin.doorbell.Transition;
-
 import java.io.Serializable;
 
-import static com.wujilin.doorbell.starter.Starters.newStarter;
-import static com.wujilin.doorbell.starter.Starters.newStarter;
 import static com.wujilin.doorbell.starter.Starters.newStarter;
 import static com.wujilin.doorbell.util.Objects.requireNonNull;
 
 /**
  * The class represents the doorbell to ring to start activities.
  */
-public class ActivityDoorbell extends Doorbell {
+class ActivityDoorbell extends Doorbell {
 
   /**
    * The value represents no result
@@ -56,7 +47,7 @@ public class ActivityDoorbell extends Doorbell {
   public static final int NO_RESULT = -1;
 
   /**
-   * The starter to start activities
+   * The starter to start activity
    */
   private Starter starter;
 
@@ -66,9 +57,9 @@ public class ActivityDoorbell extends Doorbell {
   private int requestCode;
 
   /**
-   * The intent for starting activities
+   * The intents for starting activities
    */
-  private Intent intent;
+  private Intent[] intents;
 
   /**
    * Additional options for how the Activity should be started
@@ -76,38 +67,59 @@ public class ActivityDoorbell extends Doorbell {
   private Bundle options;
 
   /**
-   * The transition animation to perform next
+   * The animation resource to use for the incoming activity
    */
-  private Transition transition;
+  @AnimRes
+  private int enter;
+
+  /**
+   * The animation resource to use for the outgoing activity
+   */
+  @AnimRes
+  private int exit;
 
   /**
    * Constructs a new activity doorbell.
    *
    * @param builder The builder to build the activity doorbell
    */
-  private ActivityDoorbell(final Builder builder) {
+  private ActivityDoorbell(Builder builder) {
     super(builder);
     this.starter     = builder.starter;
     this.requestCode = builder.requestCode;
-    this.intent      = builder.intent;
+    this.intents     = builder.intents;
     this.options     = builder.options;
-    this.transition  = new Transition() {
-      @Override
-      public int getEnter() {
-        return builder.enter;
-      }
+    this.enter       = builder.enter;
+    this.exit        = builder.exit;
+  }
 
-      @Override
-      public int getExit() {
-        return builder.exit;
-      }
-    };
+  /**
+   * Test if the transition is given.
+   *
+   * @return True if the transition is given, otherwise false.
+   */
+  private boolean hasTransition() {
+    return enter != 0 || exit != 0;
   }
 
   @Override
   protected void onAllow() {
-    requireNonNull(intent, "The intent must not be null.");
+    if (intents == null || intents.length == 0) {
+      return;
+    }
+    start();
+    overridePendingTransition();
+  }
 
+  /**
+   * Starts the activities.
+   */
+  private void start() {
+    if (intents.length > 1) {
+      starter.startActivities(intents, options);
+      return;
+    }
+    Intent intent = intents[0];
     switch (requestCode) {
       case NO_RESULT:
         starter.startActivity(intent, options);
@@ -116,7 +128,12 @@ public class ActivityDoorbell extends Doorbell {
         starter.startActivityForResult(intent, requestCode, options);
         break;
     }
+  }
 
+  /**
+   * Overrides the pending transition.
+   */
+  private void overridePendingTransition() {
     Activity activity = starter.getActivity();
     if (activity == null) {
       return;
@@ -127,11 +144,12 @@ public class ActivityDoorbell extends Doorbell {
     int exitId  = starter.getExit();
 
     // if the transition of the doorbell is given
-    if (transition != null) {
-      enterId = transition.getEnter();
-      exitId  = transition.getExit();
+    if (hasTransition()) {
+      enterId = this.enter;
+      exitId  = this.exit;
     }
 
+    // override the pending transition
     activity.overridePendingTransition(enterId, exitId);
   }
 
@@ -151,9 +169,9 @@ public class ActivityDoorbell extends Doorbell {
     private int requestCode = NO_RESULT;
 
     /**
-     * The intent for strating activities
+     * The arrary of intents for starting activities.
      */
-    private Intent intent;
+    private Intent[] intents;
 
     /**
      * Additional options for how the Activity should be started
@@ -203,7 +221,7 @@ public class ActivityDoorbell extends Doorbell {
      * @param starter The starter to start acitvities
      */
     public Builder(Starter starter) {
-      requireNonNull(starter, "The starter must not be null.");
+      requireNonNull(starter, "The starter must not be null");
       this.starter = starter;
     }
 
@@ -220,14 +238,43 @@ public class ActivityDoorbell extends Doorbell {
     }
 
     /**
-     * Sets the intent for strating activities.
+     * Sets the activity classes to be launched.
+     *
+     * @param activityClasses The activity classes to be launched
+     * @return this
+     */
+    public Builder start(Class<? extends Activity>... activityClasses) {
+      if (activityClasses == null || activityClasses.length == 0) {
+        return this;
+      }
+      Context context  = this.starter.getActivity();
+      Intent[] intents = new Intent[activityClasses.length];
+      for (int i = 0; i < activityClasses.length; i++) {
+        Intent intent = new Intent(context, activityClasses[i]);
+        intents[i]    = intent;
+      }
+      return start(intents);
+    }
+
+    /**
+     * Sets the intent for starting activity.
      *
      * @param intent The intent
      * @return this
      */
     public Builder start(Intent intent) {
-      requireNonNull(starter, "The intent must not be null.");
-      this.intent = intent;
+      this.intents = new Intent[] { intent };
+      return this;
+    }
+
+    /**
+     * Sets the intents for starting activities.
+     *
+     * @param intents The intents for starting activities.
+     * @return this
+     */
+    public Builder start(Intent... intents) {
+      this.intents = intents;
       return this;
     }
 
@@ -239,8 +286,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, boolean value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -252,8 +300,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, int value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -265,8 +314,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, long value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -278,8 +328,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, float value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -291,8 +342,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, double value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -304,8 +356,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, String value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -317,8 +370,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, byte[] value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -330,8 +384,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, int[] value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -343,8 +398,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, long[] value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -356,8 +412,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, boolean[] value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -369,8 +426,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, float[] value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -382,8 +440,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, double[] value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -395,8 +454,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, CharSequence[] value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -408,8 +468,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, String[] value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -421,8 +482,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, Parcelable value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -434,8 +496,9 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder extra(String name, Parcelable[] value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -444,11 +507,12 @@ public class ActivityDoorbell extends Doorbell {
      *
      * @param name The name of the extra data, with package prefix.
      * @param value The
-     * @return
+     * @return this
      */
     public Builder extra(String name, Serializable value) {
-      requireIntent();
-      this.intent.putExtra(name, value);
+      for (Intent intent : intents) {
+        intent.putExtra(name, value);
+      }
       return this;
     }
 
@@ -462,8 +526,9 @@ public class ActivityDoorbell extends Doorbell {
       if (extras == null) {
         return this;
       }
-      requireIntent();
-      this.intent.putExtras(extras);
+      for (Intent intent : intents) {
+        intent.putExtras(extras);
+      }
       return this;
     }
 
@@ -496,7 +561,7 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder enter(@AnimRes int enter) {
-      return transition(enter, 0);
+      return transition(enter, getDefaultExit());
     }
 
     /**
@@ -506,7 +571,7 @@ public class ActivityDoorbell extends Doorbell {
      * @return this
      */
     public Builder exit(@AnimRes int exit) {
-      return transition(0, exit);
+      return transition(getDefaultEnter(), exit);
     }
 
     /**
@@ -519,21 +584,6 @@ public class ActivityDoorbell extends Doorbell {
     public Builder transition(@AnimRes final int enter, @AnimRes final int exit) {
       this.enter = enter;
       this.exit  = exit;
-      return this;
-    }
-
-    /**
-     * Sets the transition animation to perform next.
-     *
-     * @param transition The transition animation
-     * @return this
-     */
-    public Builder transition(Transition transition) {
-      if (transition == null) {
-        return this;
-      }
-      this.enter = transition.getEnter();
-      this.exit  = transition.getExit();
       return this;
     }
 
@@ -591,13 +641,6 @@ public class ActivityDoorbell extends Doorbell {
     @Override
     protected Doorbell build() {
       return new ActivityDoorbell(this);
-    }
-
-    /**
-     * Requires a intent.
-     */
-    private void requireIntent() {
-      requireNonNull(this.intent, "The intent must not be null.");
     }
   }
 }

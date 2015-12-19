@@ -1,3 +1,10 @@
+# V0.3.0 (2015-12-19): Support Starting Multiple Activities
+
+- Support starting multiple activities.
+- Remove `Transition` interface.
+- New `Starter` creating methods with transition animation resource id.
+- New abstract `Starter` implementation added.
+- Support setting default transition animation.
 
 # V0.2.0 (2015-11-21): Internal Logic Change Release
 

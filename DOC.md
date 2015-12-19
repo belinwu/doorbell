@@ -27,7 +27,9 @@ mehtods listed below in a chain.
 
 ```java
 .start(Activity.class) // or
-.start(Intent)
+.start(Intent) // or
+.start(Activity1.class, Activity2.class, ...) // or
+.start(Intent, Intent, ...)
 ```
 
 ### Sets the request code
@@ -96,6 +98,8 @@ ignored.
 .extras(Bundle)
 ```
 
+**Notice: If you start multiple activties and these methods chained, then all intents affected.**
+
 ### Sets additional options
 
 This feature rquires Android SDK API >= 16.
@@ -109,8 +113,7 @@ This feature rquires Android SDK API >= 16.
 ```java
 .enter(int) // or
 .exit(int) // or
-.transition(int, int) // or
-.transition(Transition) // Ignore if transition is null
+.transition(int, int)
 ```
 
 ### Define your Starter
@@ -120,30 +123,40 @@ your Presenter class implement the `Starter` interface.
 
 ```java
 public class Presenter implements Starter {
-  /**
-   * The real starter
-   */
-  private Fragment fragment;
+  private Starter starter = Starters.newStarter(fragment);
 
   @Override
   public void startActivity(Intent intent, Bundle options) {
-    // Take care of your NPE
-    Starter starter = Starters.newFragmentStarter(fragment);
+    // Take care of NPE
     starter.startActivity(intent, options);
   }
 
   @Override
   public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
-    // Take care of your NPE
-    Starter starter = Starters.newFragmentStarter(fragment);
+    // Take care of NPE
     starter.startActivityForResult(intent, requestCode, options);
+  }
+
+  @Override
+  public void startActivities(Intent[] intents, Bundle options) {
+    starter.startActivities(intents, options);
   }
 
   @Nullable
   @Override
   public Activity getActivity() {
-    // Take care of your NPE
-    return fragment.getActivity();
+    // Take care of NPE
+    return starter.getActivity();
+  }
+
+  @Override
+  public int getEnter() {
+    return starter.getEnter();
+  }
+
+  @Override
+  public int getExit() {
+    return starter.getEnter();
   }
 }
 ```
