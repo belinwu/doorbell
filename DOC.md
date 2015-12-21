@@ -21,7 +21,7 @@ There are 4 static methods defined in the `Doorbell` class to create the activit
 - `Doorbell.with(Starter)`
 
 They all return a instance of `ActivityDoorbell.Builder` class to build activity doorbell with some
-mehtods listed below in a chain.
+methods listed below in a chain.
 
 ### Given the Activity class to start
 
@@ -45,7 +45,7 @@ will be called.
 
 ```java
 .condition(boolean) // or
-.condition(Condtion)
+.condition(Condition)
 ```
 
 If the `.condition()` not called or `Condition` is null, then the condition of doorbell will always 
@@ -102,7 +102,7 @@ ignored.
 
 ### Sets additional options
 
-This feature rquires Android SDK API >= 16.
+This feature requires Android SDK API >= 16.
 
 ```java
 .options(Bundle)
@@ -163,6 +163,13 @@ public class Presenter implements Starter {
 
 And then create a doorbell with presenter by: `Doorbell.with(presenter);`
 
+#### Null Starter
+
+Doorbell provides a `NullStarter` to implements the Null Object Pattern for `Starter` interface.
+
+The null starter do nothing when starting activities, just quietly.
+
+You can use `Starters.STATER_NULL` to get it.
 
 ## Callback Doorbell
 
@@ -225,7 +232,7 @@ We define a login door that do nothing when the condition is passed or toast a m
 
     @Override
     public void onBlock() {
-      toask("You must login first!");
+      toast("You must login first!");
     }
   }
 ```
@@ -259,7 +266,7 @@ So we can define the login door `extends SimpleDoor` instead.
 
     @Override
     public void onBlock() {
-      toask("You must login first!");
+      toast("You must login first!");
     }
   }
 ```

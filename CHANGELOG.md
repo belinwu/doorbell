@@ -1,3 +1,8 @@
+# V0.4.0 (2015-12-21): Null Starter Feature
+
+- Add `NullStarter` to implements the Null Object Pattern for `Starter` interface.
+- Fix typo wrong.
+
 # V0.3.0 (2015-12-19): Support Starting Multiple Activities
 
 - Support starting multiple activities.
