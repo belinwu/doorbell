@@ -15,8 +15,12 @@ Doorbell is available on jCenter.
 Gradle:
 
 ```
-compile 'com.wujilin.doorbell:doorbell:0.3.0'
+compile 'com.wujilin.doorbell:doorbell:0.4.0'
 ```
+
+*Tip: If Doorbell not be in External Libraries list, try Clean Project in Android Studio.* 
+
+It works for me. :)
 
 # How do I use Doorbell?
 
@@ -26,7 +30,7 @@ Checkout the [Developer Document](DOC.md) for more details and APIs.
 
 ```java
 Doorbell.with(activity)
-    .start(AnthorActivity.class)
+    .start(AnotherActivity.class)
     .condition(boolean) // Optional
     .ring();
 ```
@@ -36,7 +40,8 @@ When the optional condition is passed, `AnotherActivity` will be launched.
 ## Call a Callback
 
 ```java
-Doorbell.create(condition).ring(OnAllowListener);
+Doorbell.create(condition)
+    .ring(OnAllowListener);
 ```
 
 When the condition is passed, `OnAllowListener.onAllow()` will be called.
@@ -56,8 +61,8 @@ Doorbell requires a minimum SDK version of 10.
 # Dependencies
 
 ```
-compile 'com.android.support:support-v4:23.1.0'
-compile 'com.android.support:support-annotations:23.1.0'
+compile 'com.android.support:support-v4:23.1.1'
+compile 'com.android.support:support-annotations:23.1.1'
 ```
 
 # Release History
@@ -66,6 +71,6 @@ Checkout the [CHANGELOG](CHANGELOG.md) file.
 
 # License
 
-The MIT Lisense.
+The MIT License.
 
 Copyright (c) 2015 Belin Wu.
