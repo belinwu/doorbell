@@ -29,12 +29,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.AnimRes;
-import android.support.v4.app.Fragment;
 
 import java.io.Serializable;
 
-import static com.wujilin.doorbell.starter.Starters.newStarter;
-import static com.wujilin.doorbell.util.Objects.requireNonNull;
+import static com.wujilin.doorbell.starter.Starters.STARTER_NULL;
 
 /**
  * The class represents the doorbell to ring to start activities.
@@ -189,40 +187,12 @@ class ActivityDoorbell extends Doorbell {
     private int exit;
 
     /**
-     * Constructs a new builder object with the given context.
-     *
-     * @param context The context to start activities
-     */
-    public Builder(Context context) {
-      this(newStarter(context));
-    }
-
-    /**
-     * Constructs a new builder object with the given activity.
-     *
-     * @param activity The activity to start activities
-     */
-    public Builder(Activity activity) {
-      this(newStarter(activity));
-    }
-
-    /**
-     * Constructs a new builder object with the given fragment.
-     *
-     * @param fragment The fragment to start acitvities
-     */
-    public Builder(Fragment fragment) {
-      this(newStarter(fragment));
-    }
-
-    /**
      * Construct a new builder object with the given starter.
      *
-     * @param starter The starter to start acitvities
+     * @param starter The starter to start activities
      */
     public Builder(Starter starter) {
-      requireNonNull(starter, "The starter must not be null");
-      this.starter = starter;
+      this.starter = starter == null ? STARTER_NULL : starter;
     }
 
     /**

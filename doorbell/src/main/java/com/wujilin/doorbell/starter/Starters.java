@@ -36,6 +36,11 @@ import com.wujilin.doorbell.Starter;
 public final class Starters {
 
   /**
+   * The null starter
+   */
+  public static final Starter STARTER_NULL = new NullStarter(null);
+
+  /**
    * Preventing from constructing.
    */
   private Starters() {
@@ -55,8 +60,8 @@ public final class Starters {
    * Creates a new context starter.
    *
    * @param context The context to start activity
-   * @param enter The animation resource for incomming activity
-   * @param exit The animation resrouce for outgoing activity
+   * @param enter The animation resource for incoming activity
+   * @param exit The animation resource for outgoing activity
    * @return The context starter
    */
   public static Starter newStarter(Context context, @AnimRes int enter, @AnimRes int exit) {
@@ -77,8 +82,8 @@ public final class Starters {
    * Creates a new activity starter.
    *
    * @param activity The activity to start activity
-   * @param enter The animation resource for incomming activity
-   * @param exit The animation resrouce for outgoing activity
+   * @param enter The animation resource for incoming activity
+   * @param exit The animation resource for outgoing activity
    * @return The activity starter
    */
   public static Starter newStarter(Activity activity, @AnimRes int enter, @AnimRes int exit) {
@@ -99,8 +104,8 @@ public final class Starters {
    * Creates a new fragment starter.
    *
    * @param fragment The fragment to start activity
-   * @param enter The animation resource for incomming activity
-   * @param exit The animation resrouce for outgoing activity
+   * @param enter The animation resource for incoming activity
+   * @param exit The animation resource for outgoing activity
    * @return The fragment starter
    */
   public static Starter newStarter(Fragment fragment, @AnimRes int enter, @AnimRes int exit) {

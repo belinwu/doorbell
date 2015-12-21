@@ -28,6 +28,7 @@ import android.content.Context;
 import android.support.annotation.AnimRes;
 import android.support.v4.app.Fragment;
 
+import static com.wujilin.doorbell.starter.Starters.newStarter;
 import static com.wujilin.doorbell.util.Objects.requireNonNull;
 
 /**
@@ -59,7 +60,7 @@ public class Doorbell {
   private Door involvedDoor;
 
   /**
-   * Contructs a new doorbell.
+   * Constructs a new doorbell.
    *
    * @param builder The builder to build the doorbell
    */
@@ -125,7 +126,7 @@ public class Doorbell {
    * @return The builder of the activity doorbell
    */
   public static ActivityDoorbell.Builder with(Context context) {
-    return new ActivityDoorbell.Builder(context);
+    return with(newStarter(context));
   }
 
   /**
@@ -135,7 +136,7 @@ public class Doorbell {
    * @return The builder of the activity doorbell
    */
   public static ActivityDoorbell.Builder with(Activity activity) {
-    return new ActivityDoorbell.Builder(activity);
+    return with(newStarter(activity));
   }
 
   /**
@@ -145,7 +146,7 @@ public class Doorbell {
    * @return The builder of the activity doorbell
    */
   public static ActivityDoorbell.Builder with(Fragment fragment) {
-    return new ActivityDoorbell.Builder(fragment);
+    return with(newStarter(fragment));
   }
 
   /**
@@ -162,7 +163,7 @@ public class Doorbell {
    * Creates a new callback doorbell.
    *
    * @param condition The condition to test
-   * @return The builder of the callball doorbell
+   * @return The builder of the callback doorbell
    */
   public static CallbackDoorbell.Builder create(boolean condition) {
     return new CallbackDoorbell.Builder(condition);
@@ -172,7 +173,7 @@ public class Doorbell {
    * Creates a new callback doorbell.
    *
    * @param condition The condition to test
-   * @return The builder of the callball doorbell
+   * @return The builder of the callback doorbell
    */
   public static CallbackDoorbell.Builder create(Condition condition) {
     return new CallbackDoorbell.Builder(condition);
@@ -182,7 +183,7 @@ public class Doorbell {
    * Creates a new callback doorbell.
    *
    * @param door The door gets involved
-   * @return The builder of the callball doorbell
+   * @return The builder of the callback doorbell
    */
   public static CallbackDoorbell.Builder create(Door door) {
     return new CallbackDoorbell.Builder(door);
