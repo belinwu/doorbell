@@ -270,3 +270,9 @@ So we can define the login door `extends SimpleDoor` instead.
     }
   }
 ```
+
+## Others
+
+### Setup default transition
+
+Call `Doorbell.setDefaultTransition()` to setup default transition.

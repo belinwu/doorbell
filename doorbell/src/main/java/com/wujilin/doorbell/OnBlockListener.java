@@ -28,8 +28,8 @@ package com.wujilin.doorbell;
  */
 public interface OnBlockListener {
 
-  /**
-   * Called when a doorbell is blocked to ring.
-   */
-  void onBlock();
+    /**
+     * Called when a doorbell is blocked to ring.
+     */
+    void onBlock();
 }

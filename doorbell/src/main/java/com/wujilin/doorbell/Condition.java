@@ -28,10 +28,10 @@ package com.wujilin.doorbell;
  */
 public interface Condition {
 
-  /**
-   * Evaluates this condition.
-   *
-   * @return <code>true</code> if passed, otherwise <code>false</code>.
-   */
-  boolean test();
+    /**
+     * Evaluates this condition.
+     *
+     * @return <code>true</code> if passed, otherwise <code>false</code>.
+     */
+    boolean test();
 }

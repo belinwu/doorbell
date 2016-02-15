@@ -1,3 +1,10 @@
+# V0.5.0 (2016-02-15): Null Checking when Starting
+
+- Add `null` checking of context object into the `ActivityDoorbell#start(...)` methods when constructing the `Intent`.
+- Let `Doorbell.ring(Door)` return the condition of the given door.
+- Rename `Doorbell.defaultTransition()` to `Doorbell.setDefaultTransition()`.
+- Reformat codes with 4 intents.
+
 # V0.4.0 (2015-12-21): Null Starter Feature
 
 - Add `NullStarter` to implements the Null Object Pattern for `Starter` interface.

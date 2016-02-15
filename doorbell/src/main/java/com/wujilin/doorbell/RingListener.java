@@ -28,8 +28,8 @@ package com.wujilin.doorbell;
  */
 public interface RingListener extends OnAllowListener, OnBlockListener {
 
-  /**
-   * Called when the ringing is completed, after the {@link #onAllow()} method.
-   */
-  void onComplete();
+    /**
+     * Called when the ringing is completed, after the {@link #onAllow()} method.
+     */
+    void onComplete();
 }

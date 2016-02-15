@@ -28,8 +28,8 @@ package com.wujilin.doorbell;
  */
 public interface OnAllowListener {
 
-  /**
-   * Called when a doorbell is allowed to ring.
-   */
-  void onAllow();
+    /**
+     * Called when a doorbell is allowed to ring.
+     */
+    void onAllow();
 }
