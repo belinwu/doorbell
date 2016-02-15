@@ -30,23 +30,23 @@ import com.wujilin.doorbell.Door;
  */
 public class SimpleDoor implements Door {
 
-  @Override
-  public boolean test() {
-    return false;
-  }
+    @Override
+    public boolean test() {
+        return false;
+    }
 
-  @Override
-  public void onAllow() {
-    // do nothing
-  }
+    @Override
+    public void onAllow() {
+        // do nothing
+    }
 
-  @Override
-  public void onComplete() {
-    // do nothing
-  }
+    @Override
+    public void onComplete() {
+        // do nothing
+    }
 
-  @Override
-  public void onBlock() {
-    // do nothing
-  }
+    @Override
+    public void onBlock() {
+        // do nothing
+    }
 }

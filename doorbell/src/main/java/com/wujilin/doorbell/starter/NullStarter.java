@@ -34,32 +34,32 @@ import com.wujilin.doorbell.Starter;
  */
 class NullStarter extends AbstractStarter<Object> {
 
-  /**
-   * Construct a new null starter.
-   *
-   * @param starter The starter
-   */
-  public NullStarter(Object starter) {
-    super(starter);
-  }
+    /**
+     * Construct a new null starter.
+     *
+     * @param starter The starter
+     */
+    public NullStarter(Object starter) {
+        super(starter);
+    }
 
-  @Override
-  public void startActivity(Object starter, Intent intent, Bundle options) {
-    // do nothing
-  }
+    @Override
+    public void startActivity(Object starter, Intent intent, Bundle options) {
+        // do nothing
+    }
 
-  @Override
-  public void startActivityForResult(Object starter, Intent intent, int requestCode, Bundle options) {
-    // do nothing
-  }
+    @Override
+    public void startActivityForResult(Object starter, Intent intent, int requestCode, Bundle options) {
+        // do nothing
+    }
 
-  @Override
-  public void startActivities(Object starter, Intent[] intents, Bundle options) {
-    // do nothing
-  }
+    @Override
+    public void startActivities(Object starter, Intent[] intents, Bundle options) {
+        // do nothing
+    }
 
-  @Override
-  public Activity getActivity(Object starter) {
-    return null;
-  }
+    @Override
+    public Activity getActivity(Object starter) {
+        return null;
+    }
 }

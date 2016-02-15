@@ -35,80 +35,80 @@ import com.wujilin.doorbell.Starter;
  */
 public final class Starters {
 
-  /**
-   * The null starter
-   */
-  public static final Starter STARTER_NULL = new NullStarter(null);
+    /**
+     * The null starter
+     */
+    public static final Starter STARTER_NULL = new NullStarter(null);
 
-  /**
-   * Preventing from constructing.
-   */
-  private Starters() {
-  }
+    /**
+     * Preventing from constructing.
+     */
+    private Starters() {
+    }
 
-  /**
-   * Creates a new context starter.
-   *
-   * @param context The context to start activities
-   * @return The context starter
-   */
-  public static Starter newStarter(Context context) {
-    return new ContextStarter(context);
-  }
+    /**
+     * Creates a new context starter.
+     *
+     * @param context The context to start activities
+     * @return The context starter
+     */
+    public static Starter newStarter(Context context) {
+        return new ContextStarter(context);
+    }
 
-  /**
-   * Creates a new context starter.
-   *
-   * @param context The context to start activity
-   * @param enter The animation resource for incoming activity
-   * @param exit The animation resource for outgoing activity
-   * @return The context starter
-   */
-  public static Starter newStarter(Context context, @AnimRes int enter, @AnimRes int exit) {
-    return new ContextStarter(context, enter, exit);
-  }
+    /**
+     * Creates a new context starter.
+     *
+     * @param context The context to start activity
+     * @param enter   The animation resource for incoming activity
+     * @param exit    The animation resource for outgoing activity
+     * @return The context starter
+     */
+    public static Starter newStarter(Context context, @AnimRes int enter, @AnimRes int exit) {
+        return new ContextStarter(context, enter, exit);
+    }
 
-  /**
-   * Creates a new activity starter.
-   *
-   * @param activity The activity to start activity
-   * @return The activity starter
-   */
-  public static Starter newStarter(Activity activity) {
-    return new ActivityStarter(activity);
-  }
+    /**
+     * Creates a new activity starter.
+     *
+     * @param activity The activity to start activity
+     * @return The activity starter
+     */
+    public static Starter newStarter(Activity activity) {
+        return new ActivityStarter(activity);
+    }
 
-  /**
-   * Creates a new activity starter.
-   *
-   * @param activity The activity to start activity
-   * @param enter The animation resource for incoming activity
-   * @param exit The animation resource for outgoing activity
-   * @return The activity starter
-   */
-  public static Starter newStarter(Activity activity, @AnimRes int enter, @AnimRes int exit) {
-    return new ActivityStarter(activity, enter, exit);
-  }
+    /**
+     * Creates a new activity starter.
+     *
+     * @param activity The activity to start activity
+     * @param enter    The animation resource for incoming activity
+     * @param exit     The animation resource for outgoing activity
+     * @return The activity starter
+     */
+    public static Starter newStarter(Activity activity, @AnimRes int enter, @AnimRes int exit) {
+        return new ActivityStarter(activity, enter, exit);
+    }
 
-  /**
-   * Creates a fragment starter.
-   *
-   * @param fragment The fragment to start activity
-   * @return The fragment starter
-   */
-  public static Starter newStarter(Fragment fragment) {
-    return new FragmentStarter(fragment);
-  }
+    /**
+     * Creates a fragment starter.
+     *
+     * @param fragment The fragment to start activity
+     * @return The fragment starter
+     */
+    public static Starter newStarter(Fragment fragment) {
+        return new FragmentStarter(fragment);
+    }
 
-  /**
-   * Creates a new fragment starter.
-   *
-   * @param fragment The fragment to start activity
-   * @param enter The animation resource for incoming activity
-   * @param exit The animation resource for outgoing activity
-   * @return The fragment starter
-   */
-  public static Starter newStarter(Fragment fragment, @AnimRes int enter, @AnimRes int exit) {
-    return new FragmentStarter(fragment, enter, exit);
-  }
+    /**
+     * Creates a new fragment starter.
+     *
+     * @param fragment The fragment to start activity
+     * @param enter    The animation resource for incoming activity
+     * @param exit     The animation resource for outgoing activity
+     * @return The fragment starter
+     */
+    public static Starter newStarter(Fragment fragment, @AnimRes int enter, @AnimRes int exit) {
+        return new FragmentStarter(fragment, enter, exit);
+    }
 }

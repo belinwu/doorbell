@@ -28,26 +28,25 @@ package com.wujilin.doorbell.util;
  */
 public final class Objects {
 
-  /**
-   * Preventing from constructing.
-   */
-  private Objects() {
-  }
-
-  /**
-   * Returns {@code o} if non-null, or throws {@code NullPointerException}
-   * with the given detail message.
-   *
-   * @param object The object to check
-   * @param message The message of NPE
-   * @param <T> The type of the objects
-   *
-   * @return The object to check
-   */
-  public static <T> T requireNonNull(T object, String message) {
-    if (object == null) {
-      throw new NullPointerException(message);
+    /**
+     * Preventing from constructing.
+     */
+    private Objects() {
     }
-    return object;
-  }
+
+    /**
+     * Returns {@code o} if non-null, or throws {@code NullPointerException}
+     * with the given detail message.
+     *
+     * @param object  The object to check
+     * @param message The message of NPE
+     * @param <T>     The type of the objects
+     * @return The object to check
+     */
+    public static <T> T requireNonNull(T object, String message) {
+        if (object == null) {
+            throw new NullPointerException(message);
+        }
+        return object;
+    }
 }

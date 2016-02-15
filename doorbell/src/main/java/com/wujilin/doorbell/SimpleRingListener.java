@@ -28,18 +28,18 @@ package com.wujilin.doorbell;
  */
 public class SimpleRingListener implements RingListener {
 
-  @Override
-  public void onComplete() {
-    // do nothing
-  }
+    @Override
+    public void onComplete() {
+        // do nothing
+    }
 
-  @Override
-  public void onAllow() {
-    // do nothing
-  }
+    @Override
+    public void onAllow() {
+        // do nothing
+    }
 
-  @Override
-  public void onBlock() {
-    // do nothing
-  }
+    @Override
+    public void onBlock() {
+        // do nothing
+    }
 }

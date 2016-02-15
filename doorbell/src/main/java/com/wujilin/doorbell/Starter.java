@@ -38,53 +38,53 @@ import android.support.annotation.Nullable;
  */
 public interface Starter {
 
-  /**
-   * Starts the activity.
-   *
-   * @param intent The description of the activity to start
-   * @param options Additional options for how the Activity should be started
-   */
-  void startActivity(Intent intent, Bundle options);
+    /**
+     * Starts the activity.
+     *
+     * @param intent  The description of the activity to start
+     * @param options Additional options for how the Activity should be started
+     */
+    void startActivity(Intent intent, Bundle options);
 
-  /**
-   * Starts the activity for the result.
-   *
-   * @param intent The description of the activity to start
-   * @param requestCode The code that will be returned with onActivityResult() identifying this
-   *          request
-   * @param options Additional options for how the Activity should be started
-   */
-  void startActivityForResult(Intent intent, int requestCode, Bundle options);
+    /**
+     * Starts the activity for the result.
+     *
+     * @param intent      The description of the activity to start
+     * @param requestCode The code that will be returned with onActivityResult() identifying this
+     *                    request
+     * @param options     Additional options for how the Activity should be started
+     */
+    void startActivityForResult(Intent intent, int requestCode, Bundle options);
 
-  /**
-   * Starts multiple activities.
-   *
-   * @param intents The intents to start.
-   * @param options Additional options for how the activities should be started.
-   */
-  void startActivities(Intent[] intents, Bundle options);
+    /**
+     * Starts multiple activities.
+     *
+     * @param intents The intents to start.
+     * @param options Additional options for how the activities should be started.
+     */
+    void startActivities(Intent[] intents, Bundle options);
 
-  /**
-   * Returns a resource ID of the animation resource to use for the incoming activity.
-   *
-   * @return A resource ID of the animation resource to use for the incoming activity
-   */
-  @AnimRes
-  int getEnter();
+    /**
+     * Returns a resource ID of the animation resource to use for the incoming activity.
+     *
+     * @return A resource ID of the animation resource to use for the incoming activity
+     */
+    @AnimRes
+    int getEnter();
 
-  /**
-   * Returns a resource ID of the animation resource to use for the outgoing activity.
-   *
-   * @return A resource ID of the animation resource to use for the outgoing activity
-   */
-  @AnimRes
-  int getExit();
+    /**
+     * Returns a resource ID of the animation resource to use for the outgoing activity.
+     *
+     * @return A resource ID of the animation resource to use for the outgoing activity
+     */
+    @AnimRes
+    int getExit();
 
-  /**
-   * Return the current activity.
-   *
-   * @return The current activity
-   */
-  @Nullable
-  Activity getActivity();
+    /**
+     * Return the current activity.
+     *
+     * @return The current activity
+     */
+    @Nullable
+    Activity getActivity();
 }

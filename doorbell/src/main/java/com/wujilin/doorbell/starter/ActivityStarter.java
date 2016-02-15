@@ -34,43 +34,43 @@ import android.support.v4.app.ActivityCompat;
  */
 class ActivityStarter extends AbstractStarter<Activity> {
 
-  /**
-   * Constructs a new activity starter.
-   *
-   * @param activity The activity to start activity
-   */
-  public ActivityStarter(Activity activity) {
-    super(activity);
-  }
+    /**
+     * Constructs a new activity starter.
+     *
+     * @param activity The activity to start activity
+     */
+    public ActivityStarter(Activity activity) {
+        super(activity);
+    }
 
-  /**
-   * Constructs a new activity starter.
-   *
-   * @param activity The activity
-   * @param enter A resource ID of the animation resource to use for the incoming activity
-   * @param exit A resource ID of the animation resource to use for the outgoing activity
-   */
-  public ActivityStarter(Activity activity, @AnimRes int enter, @AnimRes int exit) {
-    super(activity, enter, exit);
-  }
+    /**
+     * Constructs a new activity starter.
+     *
+     * @param activity The activity
+     * @param enter    A resource ID of the animation resource to use for the incoming activity
+     * @param exit     A resource ID of the animation resource to use for the outgoing activity
+     */
+    public ActivityStarter(Activity activity, @AnimRes int enter, @AnimRes int exit) {
+        super(activity, enter, exit);
+    }
 
-  @Override
-  public void startActivity(Activity starter, Intent intent, Bundle options) {
-    ActivityCompat.startActivity(starter, intent, options);
-  }
+    @Override
+    public void startActivity(Activity starter, Intent intent, Bundle options) {
+        ActivityCompat.startActivity(starter, intent, options);
+    }
 
-  @Override
-  public void startActivityForResult(Activity starter, Intent intent, int requestCode, Bundle options) {
-    ActivityCompat.startActivityForResult(starter, intent, requestCode, options);
-  }
+    @Override
+    public void startActivityForResult(Activity starter, Intent intent, int requestCode, Bundle options) {
+        ActivityCompat.startActivityForResult(starter, intent, requestCode, options);
+    }
 
-  @Override
-  public void startActivities(Activity starter, Intent[] intents, Bundle options) {
-    ActivityCompat.startActivities(starter, intents, options);
-  }
+    @Override
+    public void startActivities(Activity starter, Intent[] intents, Bundle options) {
+        ActivityCompat.startActivities(starter, intents, options);
+    }
 
-  @Override
-  public Activity getActivity(Activity starter) {
-    return starter;
-  }
+    @Override
+    public Activity getActivity(Activity starter) {
+        return starter;
+    }
 }

@@ -28,51 +28,51 @@ package com.wujilin.doorbell;
  */
 class CallbackDoorbell extends Doorbell {
 
-  /**
-   * Contructs a new callback doorbell.
-   *
-   * @param builder The builder to build the callback doorbell
-   */
-  private CallbackDoorbell(Builder builder) {
-    super(builder);
-  }
-
-  /**
-   * The callback doorbell builder.
-   */
-  public static class Builder extends Doorbell.Builder {
-
     /**
-     * Construct a new builder.
+     * Constructs a new callback doorbell.
      *
-     * @param condition The condition to test
+     * @param builder The builder to build the callback doorbell
      */
-    public Builder(boolean condition) {
-      condition(condition);
+    private CallbackDoorbell(Builder builder) {
+        super(builder);
     }
 
     /**
-     * Constructs a new builder.
-     *
-     * @param condition The condition to test
+     * The callback doorbell builder.
      */
-    public Builder(Condition condition) {
-      boolean test = condition == null || condition.test();
-      condition(test);
-    }
+    public static class Builder extends Doorbell.Builder {
 
-    /**
-     * Contructs a new builder.
-     *
-     * @param door The door gets involved
-     */
-    public Builder(Door door) {
-      door(door);
-    }
+        /**
+         * Construct a new builder.
+         *
+         * @param condition The condition to test
+         */
+        public Builder(boolean condition) {
+            condition(condition);
+        }
 
-    @Override
-    protected Doorbell build() {
-      return new CallbackDoorbell(this);
+        /**
+         * Constructs a new builder.
+         *
+         * @param condition The condition to test
+         */
+        public Builder(Condition condition) {
+            boolean test = condition == null || condition.test();
+            condition(test);
+        }
+
+        /**
+         * Constructs a new builder.
+         *
+         * @param door The door gets involved
+         */
+        public Builder(Door door) {
+            door(door);
+        }
+
+        @Override
+        protected Doorbell build() {
+            return new CallbackDoorbell(this);
+        }
     }
-  }
 }

@@ -40,54 +40,54 @@ import static android.os.Build.VERSION_CODES.JELLY_BEAN;
  */
 class ContextStarter extends AbstractStarter<Context> {
 
-  /**
-   * Constructs a new context starter.
-   *
-   * @param context The context to start activities
-   */
-  public ContextStarter(Context context) {
-    super(context);
-  }
-
-  /**
-   * Constructs a new context starter.
-   *
-   * @param context The context to start activity
-   * @param enter A resource ID of the animation resource to use for the incoming activity
-   * @param exit A resource ID of the animation resource to use for the outgoing activity
-   */
-  public ContextStarter(Context context, @AnimRes int enter, @AnimRes int exit) {
-    super(context, enter, exit);
-  }
-
-  @Override
-  @TargetApi(16)
-  public void startActivity(Context starter, Intent intent, Bundle options) {
-    if (SDK_INT >= JELLY_BEAN) {
-      starter.startActivity(intent, options);
-      return;
+    /**
+     * Constructs a new context starter.
+     *
+     * @param context The context to start activities
+     */
+    public ContextStarter(Context context) {
+        super(context);
     }
-    starter.startActivity(intent);
-  }
 
-  @Override
-  public void startActivityForResult(Context starter, Intent intent, int requestCode, Bundle options) {
-    if (starter instanceof Activity) {
-      Activity activity = (Activity) starter;
-      ActivityCompat.startActivityForResult(activity, intent, requestCode, options);
+    /**
+     * Constructs a new context starter.
+     *
+     * @param context The context to start activity
+     * @param enter   A resource ID of the animation resource to use for the incoming activity
+     * @param exit    A resource ID of the animation resource to use for the outgoing activity
+     */
+    public ContextStarter(Context context, @AnimRes int enter, @AnimRes int exit) {
+        super(context, enter, exit);
     }
-  }
 
-  @Override
-  public void startActivities(Context starter, Intent[] intents, Bundle options) {
-    ContextCompat.startActivities(starter, intents, options);
-  }
-
-  @Override
-  public Activity getActivity(Context starter) {
-    if (starter instanceof Activity) {
-      return (Activity) starter;
+    @Override
+    @TargetApi(16)
+    public void startActivity(Context starter, Intent intent, Bundle options) {
+        if (SDK_INT >= JELLY_BEAN) {
+            starter.startActivity(intent, options);
+            return;
+        }
+        starter.startActivity(intent);
     }
-    return null;
-  }
+
+    @Override
+    public void startActivityForResult(Context starter, Intent intent, int requestCode, Bundle options) {
+        if (starter instanceof Activity) {
+            Activity activity = (Activity) starter;
+            ActivityCompat.startActivityForResult(activity, intent, requestCode, options);
+        }
+    }
+
+    @Override
+    public void startActivities(Context starter, Intent[] intents, Bundle options) {
+        ContextCompat.startActivities(starter, intents, options);
+    }
+
+    @Override
+    public Activity getActivity(Context starter) {
+        if (starter instanceof Activity) {
+            return (Activity) starter;
+        }
+        return null;
+    }
 }

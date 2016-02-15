@@ -35,47 +35,47 @@ import android.support.v4.app.Fragment;
  */
 class FragmentStarter extends AbstractStarter<Fragment> {
 
-  /**
-   * Constructs a new fragment starter.
-   *
-   * @param fragment The fragment to start activity
-   */
-  public FragmentStarter(Fragment fragment) {
-    super(fragment);
-  }
-
-  /**
-   * Constructs a new fragment starter.
-   *
-   * @param fragment The fragment to start activity
-   * @param enter A resource ID of the animation resource to use for the incoming activity
-   * @param exit A resource ID of the animation resource to use for the outgoing activity
-   */
-  public FragmentStarter(Fragment fragment, @AnimRes int enter, @AnimRes int exit) {
-    super(fragment, enter, exit);
-  }
-
-  @Override
-  public void startActivity(Fragment starter, Intent intent, Bundle options) {
-    starter.startActivity(intent);
-  }
-
-  @Override
-  public void startActivityForResult(Fragment starter, Intent intent, int requestCode, Bundle options) {
-    starter.startActivityForResult(intent, requestCode);
-  }
-
-  @Override
-  public void startActivities(Fragment starter, Intent[] intents, Bundle options) {
-    Activity activity = getActivity();
-    if (activity == null) {
-      return;
+    /**
+     * Constructs a new fragment starter.
+     *
+     * @param fragment The fragment to start activity
+     */
+    public FragmentStarter(Fragment fragment) {
+        super(fragment);
     }
-    ActivityCompat.startActivities(activity, intents, options);
-  }
 
-  @Override
-  public Activity getActivity(Fragment starter) {
-    return starter.getActivity();
-  }
+    /**
+     * Constructs a new fragment starter.
+     *
+     * @param fragment The fragment to start activity
+     * @param enter    A resource ID of the animation resource to use for the incoming activity
+     * @param exit     A resource ID of the animation resource to use for the outgoing activity
+     */
+    public FragmentStarter(Fragment fragment, @AnimRes int enter, @AnimRes int exit) {
+        super(fragment, enter, exit);
+    }
+
+    @Override
+    public void startActivity(Fragment starter, Intent intent, Bundle options) {
+        starter.startActivity(intent);
+    }
+
+    @Override
+    public void startActivityForResult(Fragment starter, Intent intent, int requestCode, Bundle options) {
+        starter.startActivityForResult(intent, requestCode);
+    }
+
+    @Override
+    public void startActivities(Fragment starter, Intent[] intents, Bundle options) {
+        Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        ActivityCompat.startActivities(activity, intents, options);
+    }
+
+    @Override
+    public Activity getActivity(Fragment starter) {
+        return starter.getActivity();
+    }
 }
