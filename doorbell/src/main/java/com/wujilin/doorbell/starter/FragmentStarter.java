@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 
 /**
@@ -77,5 +78,20 @@ class FragmentStarter extends AbstractStarter<Fragment> {
     @Override
     public Activity getActivity(Fragment starter) {
         return starter.getActivity();
+    }
+
+    @Override
+    protected void exit(Fragment starter) {
+        if (starter instanceof DialogFragment) {
+            DialogFragment fragment = (DialogFragment) starter;
+            if (fragment.getShowsDialog()) {
+                fragment.dismiss();
+                return;
+            }
+        }
+        Activity activity = getActivity();
+        if (activity != null) {
+            activity.finish();
+        }
     }
 }

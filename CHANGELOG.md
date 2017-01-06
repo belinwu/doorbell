@@ -1,3 +1,7 @@
+# V0.6.0 (2017-01-06): Add `exit()` function.
+
+- Add `exit()` function.
+
 # V0.5.0 (2016-02-15): Null Checking when Starting
 
 - Add `null` checking of context object into the `ActivityDoorbell#start(...)` methods when constructing the `Intent`.

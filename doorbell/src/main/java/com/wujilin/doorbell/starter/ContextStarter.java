@@ -90,4 +90,11 @@ class ContextStarter extends AbstractStarter<Context> {
         }
         return null;
     }
+
+    @Override
+    protected void exit(Context starter) {
+        if (starter instanceof Activity) {
+            ((Activity) starter).finish();
+        }
+    }
 }

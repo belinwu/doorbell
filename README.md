@@ -15,7 +15,7 @@ Doorbell is available on jCenter.
 Gradle:
 
 ```
-compile 'com.wujilin.doorbell:doorbell:0.4.0'
+compile 'com.wujilin.doorbell:doorbell:0.6.0'
 ```
 
 *Tip: If Doorbell not be in External Libraries list, try Clean Project in Android Studio.* 

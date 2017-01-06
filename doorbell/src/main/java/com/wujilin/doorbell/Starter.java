@@ -87,4 +87,9 @@ public interface Starter {
      */
     @Nullable
     Activity getActivity();
+
+    /**
+     * Exit.
+     */
+    void exit();
 }

@@ -62,4 +62,9 @@ class NullStarter extends AbstractStarter<Object> {
     public Activity getActivity(Object starter) {
         return null;
     }
+
+    @Override
+    protected void exit(Object starter) {
+        // do nothing
+    }
 }

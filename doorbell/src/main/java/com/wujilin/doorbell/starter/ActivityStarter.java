@@ -73,4 +73,10 @@ class ActivityStarter extends AbstractStarter<Activity> {
     public Activity getActivity(Activity starter) {
         return starter;
     }
+
+    @Override
+    protected void exit(Activity starter)
+    {
+        starter.finish();
+    }
 }

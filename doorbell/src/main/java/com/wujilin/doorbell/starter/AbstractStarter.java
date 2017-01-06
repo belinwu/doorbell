@@ -113,6 +113,14 @@ public abstract class AbstractStarter<T> implements Starter {
     }
 
     @Override
+    public void exit() {
+        T starter = starterReference.get();
+        if (starter != null) {
+            exit(starter);
+        }
+    }
+
+    @Override
     public int getEnter() {
         return enterId;
     }
@@ -157,4 +165,11 @@ public abstract class AbstractStarter<T> implements Starter {
      * @return The current activity
      */
     public abstract Activity getActivity(T starter);
+
+    /**
+     * Exit.
+     *
+     * @param starter The starter to start activity
+     */
+    protected abstract void exit(T starter);
 }
