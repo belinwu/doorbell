@@ -1,3 +1,7 @@
+# V0.6.1 (2017-03-16): Upgrade support library to 25.2.0.
+
+- Upgrade support library to 25.2.0 because the v4 library is now split.
+
 # V0.6.0 (2017-01-06): Add `exit()` function.
 
 - Add `exit()` function.

@@ -56,6 +56,11 @@ public class SendActivity extends Activity implements Starter {
     return 0;
   }
 
+  @Override
+  public void exit() {
+
+  }
+
   @Nullable
   @Override
   public Activity getActivity() {

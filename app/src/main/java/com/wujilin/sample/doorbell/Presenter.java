@@ -60,6 +60,11 @@ public class Presenter implements Starter {
   }
 
   @Override
+  public void exit() {
+
+  }
+
+  @Override
   public int getEnter() {
     return starter.getEnter();
   }

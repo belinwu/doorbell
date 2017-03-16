@@ -46,6 +46,11 @@ public class ThirdActivity extends Activity implements Starter {
   }
 
   @Override
+  public void exit() {
+
+  }
+
+  @Override
   public int getEnter() {
     return 0;
   }
