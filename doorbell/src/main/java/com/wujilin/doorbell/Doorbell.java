@@ -40,6 +40,11 @@ import static com.wujilin.doorbell.util.Objects.requireNonNull;
 public class Doorbell {
 
     /**
+     * The transition not set.
+     */
+    public static final int TRANSITION_NOT_SET = -1;
+
+    /**
      * The default resource ID of the animation resource to use for the incoming activity
      */
     private static int defaultEnter;

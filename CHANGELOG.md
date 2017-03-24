@@ -1,3 +1,7 @@
+# V0.6.2 (2017-03-24): Fix no transition animation not working.
+
+- Fix no transition animation not working.
+
 # V0.6.1 (2017-03-16): Upgrade support library to 25.2.0.
 
 - Upgrade support library to 25.2.0 because the v4 library is now split.

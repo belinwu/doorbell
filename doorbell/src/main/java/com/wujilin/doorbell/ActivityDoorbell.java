@@ -97,7 +97,7 @@ class ActivityDoorbell extends Doorbell {
      * @return True if the transition is given, otherwise false.
      */
     private boolean hasTransition() {
-        return enter != 0 || exit != 0;
+        return enter != TRANSITION_NOT_SET || exit != TRANSITION_NOT_SET;
     }
 
     @Override
@@ -179,12 +179,12 @@ class ActivityDoorbell extends Doorbell {
         /**
          * The animation resource to use for the incoming activity
          */
-        private int enter;
+        private int enter = TRANSITION_NOT_SET;
 
         /**
          * The animation resource to use for the outgoing activity
          */
-        private int exit;
+        private int exit = TRANSITION_NOT_SET;
 
         /**
          * Construct a new builder object with the given starter.
